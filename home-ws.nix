@@ -175,6 +175,8 @@
         };
       };
     };
+
+    # X settings are set here.
     xresources.properties = {
       "Xft.dpi" = 96;
       "Xft.antialias" = true;
@@ -255,6 +257,8 @@
       "URxvt*cursorColor" =	"#b0aba8";
       "URxvt*saveLines" = 5000;
     };
+
+    # Polybar overrides i3bars to provide, well, uh, bars.
     services.polybar = {
       enable = true;
       package = pkgs.polybar.override {
@@ -517,7 +521,7 @@
           };
         };
       '';
-    }
+    };
 
     # Screen locker.
     services.screen-locker = {
@@ -525,6 +529,12 @@
       inactiveInterval = 5; # In minutes.
       lockCmd = "\${pkgs.i3lock}/bin/i3lock -n -c 000000" ;
     };
+
+    # Dunst provides notification services.
+    programs.dunst = {
+      enable = true;
+    };
+
     # Rofi is a dmenu replacement.
     programs.rofi = {
       enable = true;

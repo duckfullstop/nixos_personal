@@ -25,5 +25,10 @@
         enable = true;
       };
       xdg.enable = true;
+
+      programs.htop = {
+        enable = true;
+        cpuCountFromZero = true;
+      };
     };
 }

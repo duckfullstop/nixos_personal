@@ -428,6 +428,97 @@
       };
     };
 
+    # Compton composites for us.
+    services.compton = {
+      enable = true;
+
+      # Nvidia driver shenanigans
+      vSync = "opengl";
+
+      # shadows
+      shadow = true;
+      noDockShadow = true;
+      shadowOffsets = [ -7 -7 ];
+      shadowOpacity = "0.7";
+      shadowExclude = [
+        	"name = 'Notification'"
+          # workaround for conky until it provides window properties:
+          "override_redirect = 1 && !WM_CLASS@:s"
+          #	"class_g ?= 'Dunst'", 
+          # disable shadows for hidden windows:
+          "_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
+          "_GTK_FRAME_EXTENTS@:c"
+          # disables shadows on sticky windows:
+          #	"_NET_WM_STATE@:32a *= '_NET_WM_STATE_STICKY'",
+          # disables shadows on i3 frames
+          "class_g ?= 'i3-frame'"
+      ];
+
+      # opacities
+      menuOpacity = "0.8";
+      inactiveOpacity = "1";
+      activeOpacity = "1";
+      opacityRule = [
+        "99:name *?= 'Call'"
+        "99:name *?= 'Conky'"
+        "99:class_g = 'Darktable'"
+        "50:class_g = 'Dmenu'"
+        "99:name *?= 'Event'"
+        "99:class_g = 'Firefox'"
+        "99:class_g = 'GIMP'"
+        "99:name *?= 'Image'"
+        "99:class_g = 'Lazpaint'"
+        "99:class_g = 'Midori'"
+        "99:name *?= 'Minitube'"
+        "99:class_g = 'Mousepad'"
+        "99:name *?= 'MuseScore'"
+        "90:name *?= 'Page Info'"
+        "99:name *?= 'Pale Moon'"
+        "90:name *?= 'Panel'"
+        "99:class_g = 'Pinta'"
+        "90:name *?= 'Restart'"
+        "50:class_g = 'rofi'"
+        "99:name *?= 'sudo'"
+        "99:name *?= 'Screenshot'" 
+        "99:class_g = 'Viewnior'"
+        "99:class_g = 'VirtualBox'"
+        "99:name *?= 'VLC'"
+        "99:name *?= 'Write'"
+        "99:name *?= 'rofi'"
+        #"100:class_g = 'URxvt' && !_NET_WM_STATE@:32a" 
+        "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
+        "96:_NET_WM_STATE@:32a *= '_NET_WM_STATE_STICKY'"
+      ];
+
+      
+      # fading
+      fade = false;
+      fadeDelta = 1;
+      fadeSteps = [ 0.03 0.03 ];
+
+      # extra options
+      extraOptions = ''
+        unredir-if-possible = false;
+        wintypes : 
+        {
+          tooltip : 
+          {
+            fade = true;
+            shadow = false;
+            opacity = 0.85;
+            focus = true;
+          };
+          fullscreen : 
+          {
+            fade = true;
+            shadow = false;
+            opacity = 1;
+            focus = true;
+          };
+        };
+      '';
+    }
+
     # Screen locker.
     services.screen-locker = {
       enable = true;

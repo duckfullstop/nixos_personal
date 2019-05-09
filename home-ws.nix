@@ -539,7 +539,7 @@
       # shadows
       shadow = true;
       noDockShadow = true;
-      shadowOffsets = [ -7 -7 ];
+      shadowOffsets = [ (-7) (-7) ];
       shadowOpacity = "0.7";
       shadowExclude = [
         	"name = 'Notification'"
@@ -618,7 +618,7 @@
           };
         };
       '';
-    }
+    };
 
     # Screen locker.
     services.screen-locker = {

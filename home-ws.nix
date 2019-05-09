@@ -48,6 +48,7 @@
         #cmus
         mpd
         pavucontrol
+        playerctl
 
         ## Chat
         signal-desktop
@@ -106,7 +107,7 @@
           "${modifier}+Return" = "exec urxvt";
           "${modifier}+Shift+q" = "kill";
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -sidebar-mode -show combi";
-          "${modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'End session? This will close all applications.' -b 'End session' '~/.bin/end-session'";
+          "${modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'End session? This will close all applications.' -b 'End session' 'exec ~/.bin/end-session'";
           "${modifier}+u" = "border pixel 1";
           "${modifier}+y" = "border pixel 1";
           "${modifier}+n" = "border pixel 1";
@@ -145,6 +146,16 @@
 
           #"${modifier}+Ctrl+Right" = "workspace next";
           #"${modifier}+Ctrl+Left" = "workspace prev";
+
+          # Volume Control
+          "XF86AudioRaiseVolume" = "exec pactl set-sink-volume 0 +5%";
+          "XF86AudioLowerVolume" = "exec pactl set-sink-volume 0 -5%";
+          "XF86AudioMute" = "exec pactl set-sink-mute 0 toggle";
+          "XF86AudioPlay" = "exec playerctl play-pause";
+          "XF86AudioStop" = "exec playerctl stop";
+          "XF86AudioNext" = "exec playerctl next";
+          "XF86AudioPrev" = "exec playerctl previous";
+
         };
         fonts = ["xft:Hack 10"];
 
@@ -268,7 +279,7 @@
         githubSupport = true;
       };
       script = ''
-        polybar main_bar &
+        polybar main_bar & polybar secondary_bar &
       '';
       config = {
         "colors" = {
@@ -316,7 +327,7 @@
           padding-right = 0;
 
           module-margin-left = 0;
-          module-margin-right = 0;
+          module-margin-right = 2;
 
           font-0 = "Hack:fontformat=truetype:size=9;1";
           font-1 = "Hack:fontformat=truetype:size=9;1";
@@ -324,7 +335,56 @@
 
           modules-left = "i3 xwindow";
           modules-center = "date";
-          modules-right = "musicinfo";
+          modules-right = "cpu memory";
+
+          tray-position = "right";
+          tray-padding = 9;
+          tray-transparent = false;
+          tray-offset-y = "0%";
+          tray-offset-x = "0%";
+          tray-maxsize = 18;
+          tray-detached = false;
+          tray-background = "\${colors.my_background}";
+          #tray-underline = "${colors.my_color4}";
+
+          wm-restack = "i3";
+
+          override-redirect = false;
+        };
+
+        "bar/secondary_bar" = {
+          # Appears on the DVI monitor.
+          monitor = "\${env:MONITOR:DVI-I-1}";
+          bottom = false;
+          width = "100%";
+          height = 20;
+          #offset-x = "5%";
+          #offset-y = "1%";
+          radius = 0;
+          fixed-center = true;
+
+
+          background = "\${colors.my_background}";
+          foreground = "\${colors.my_foreground}";
+
+          line-size = 4;
+          line-color = "\${colors.my_color4}";
+
+          border-size = 0;
+          border-color = "\${colors.my_color4}";
+
+          padding-left = 0;
+          padding-right = 0;
+
+          module-margin-left = 0;
+          module-margin-right = 2;
+
+          font-0 = "Hack:fontformat=truetype:size=9;1";
+          font-1 = "Hack:fontformat=truetype:size=9;1";
+          font-2 = "FontAwesome:fontformat=truetype:size=9;1";
+
+          modules-left = "i3";
+          modules-right = "volume powermenu";
 
           tray-position = "right";
           tray-padding = 9;
@@ -345,6 +405,7 @@
         # Modules
         "module/i3" = {
           type = "internal/i3";
+          pin-workspaces = true;
           label-unfocused-background = "\${colors.my_background}";
           label-unfocused-foreground = "\${colors.my_foreground}";
           label-mode = "%mode%";
@@ -373,7 +434,7 @@
           date = "";
           date-alt = "%d/%m/%Y";
 
-          time = "%a %b %d, %I:%M %p ";
+          time = "%a %b %d, %H:%M ";
 
           time-alt = "%H:%M";
 
@@ -383,38 +444,78 @@
           label = "%date% %time%";
         };
         "module/volume" = {
-          type = "internal/volume";
-          format-muted-background = "\${colors.my_color1}";
-          format-volume-background = "\${colors.my_color8}";
-          format-volume = "<label-volume> <bar-volume>";
-          label-muted = "SOUND MUTED";
+          type = "internal/pulseaudio";
+          # Comment to use default sink
+          # sink = pacmd list-sinks
+          use-ui-max = true;
+          interval = 5;
+          format-muted-background = "\${colors.my_color4}";
+          format-volume-background = "\${colors.my_background}";
+          format-underline = "\${colors.my_color4}";
+          format-volume = "<ramp-volume> <label-volume>";
+          label-muted = "M";
+          ramp-volume-0 = "";
+          ramp-volume-1 = "";
+          ramp-volume-2 = "";
         };
         "module/powermenu" = {
           type = "custom/menu";
           format-spacing = 1;
-          label-open = "";
-          label-open-background = "\${colors.background-mod}";
-          label-open-foreground = "\${colors.secondary}";
-          label-close = " cancel";
-          label-close-background = "\${colors.background-mod}";
-          label-close-foreground = "\${colors.secondary}";
+          label-open = "";
+          label-open-background = "\${colors.my_background}";
+          label-open-foreground = "\${colors.my_color2}";
+          label-close = " cancel";
+          label-close-background = "\${colors.my_background}";
+          label-close-foreground = "\${colors.my_color2}";
           label-separator = " ";
-          label-separator-foreground = "\${colors.foreground-alt}";
+          label-separator-foreground = "\${colors.my_foreground}";
 
           menu-0-0 = "reboot";
           menu-0-0-exec = "menu-open-1";
           menu-0-1 = "power off";
           menu-0-1-exec = "menu-open-2";
+          menu-0-2 = "suspend";
+          menu-0-2-exec = "systemctl suspend";
 
           menu-1-0 = "cancel";
           menu-1-0-exec = "menu-open-0";
           menu-1-1 = "reboot";
-          menu-1-1-exec = "sudo reboot";
+          menu-1-1-exec = "systemctl reboot";
 
           menu-2-0 = "power off";
-          menu-2-0-exec = "sudo poweroff";
+          menu-2-0-exec = "systemctl poweroff";
           menu-2-1 = "cancel";
           menu-2-1-exec = "menu-open-0";
+
+        };
+        "module/cpu" = {
+          type = "internal/cpu";
+          interval = 1;
+          format = "<label> <ramp-load>";
+          label = "CPU %percentage%";
+          ramp-load-0 = "▁";
+          ramp-load-1 = "▂";
+          ramp-load-2 = "▃";
+          ramp-load-3 = "▄";
+          ramp-load-4 = "▅";
+          ramp-load-5 = "▆";
+          ramp-load-6 = "▇";
+          ramp-load-7 = "█";
+        };
+        "module/memory" = {
+          type = "internal/memory";
+          interval = 5;
+          format = "<label> <bar-used>";
+          label = "MEM %gb_used%/%gb_free%";
+          bar-used-indicator = " ";
+          bar-used-width = 10;
+          bar-used-foreground-0 = "\${colors.my_color1}";
+          bar-used-foreground-1 = "\${colors.my_color2}";
+          bar-used-foreground-2 = "\${colors.my_color3}";
+          bar-used-foreground-3 = "\${colors.my_color4}";
+          bar-used-fill = "▐";
+          bar-used-empty = "▐";
+          bar-used-empty-foreground = "\${colors.my_color5}";
         };
 
         "module/xwindow" = {
@@ -442,7 +543,7 @@
       # shadows
       shadow = true;
       noDockShadow = true;
-      shadowOffsets = [ -7 -7 ];
+      shadowOffsets = [ (-7) (-7) ];
       shadowOpacity = "0.7";
       shadowExclude = [
         	"name = 'Notification'"

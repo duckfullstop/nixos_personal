@@ -37,4 +37,6 @@ in
 }
 ```
 
+Note: **I STRONGLY RECOMMEND HAVING `services.openssh.passwordAuthentication` SET TO `false`**;
+
 `nixos-rebuild switch` should then import this environment to your system.

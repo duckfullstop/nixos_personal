@@ -1,0 +1,8 @@
+kind: pipeline
+name: test
+
+steps:
+  - name: syntax-test
+    image: nixos/nix
+    commands:
+      - for i in `find . ! -path '*deprecated*' -name "*.nix" -type f`; do nix-instantiate --parse "$i" > /dev/null; done

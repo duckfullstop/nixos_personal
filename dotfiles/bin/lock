@@ -12,4 +12,4 @@ i3lock-color \
   -m \
   --timestr="%H:%M:%S"  \
   --datestr="%A, %m %Y" \
-  --ringcolor 002b36
+  --ringcolor 002b36ff

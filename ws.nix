@@ -632,7 +632,7 @@
     };
 
     # Dunst provides notification services.
-    programs.dunst = {
+    services.dunst = {
       enable = true;
     };
 

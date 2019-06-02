@@ -1,3 +1,15 @@
 #!/usr/bin/env bash
 
-i3lock -e -c 002b36
+i3lock-color \
+  --screen 1 \
+  --blur 3 \
+  --clock \
+  --bar-indicator \
+  --redraw-thread \
+  --indicator \
+  --keylayout=0 \
+  --show-failed-attempts \
+  -m \
+  --timestr="%H:%M:%S"  \
+  --datestr="%A, %m %Y" \
+  --ringcolor 002b36

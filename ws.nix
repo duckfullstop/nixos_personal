@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./home-base.nix
+    ./base.nix
   ];
   home-manager.users.duck = {
     home.packages = with pkgs; [
@@ -112,7 +112,7 @@
           "${modifier}+y" = "border pixel 1";
           "${modifier}+n" = "border pixel 1";
 
-          "${modifier}+l" = "exec i3lock -n -c 000000";
+          "${modifier}+l" = "exec ~/.bin/lock";
           #"Print" = "exec --no-startup-id i3-scrot";
           #"${modifier}+Print" = "exec --no-startup-id i3-scrot -w";
           #"${modifier}+Shift+Print" = "exec --no-startup-id i3-scrot";
@@ -628,7 +628,7 @@
     services.screen-locker = {
       enable = true;
       inactiveInterval = 5; # In minutes.
-      lockCmd = "\${pkgs.i3lock}/bin/i3lock -n -c 000000" ;
+      lockCmd = "~/.bin/lock";
     };
 
     # Dunst provides notification services.

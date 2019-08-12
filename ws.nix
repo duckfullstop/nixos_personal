@@ -56,6 +56,7 @@
 
         ## Gaming
         #steam
+        openttd
 
         ## Creative
         krita

@@ -8,5 +8,3 @@ yubi () {
 }
 
 autoload -Uz yubi
-
-yubi

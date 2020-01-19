@@ -32,7 +32,6 @@
         virtmanager
         wireguard
         pgmanage
-        container-linux-config-transpiler
         kubectl
 
         # Utility

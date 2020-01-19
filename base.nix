@@ -3,7 +3,7 @@
 let
   home-manager = builtins.fetchGit {
     url = "https://github.com/rycee/home-manager.git";
-    ref = "release-20.03";
+    ref = "release-19.09";
   };
 in
 {
@@ -25,6 +25,8 @@ in
 
       # Utility
       parted
+      iperf3
+      speedtest-cli
     ];
 
     programs.home-manager = {

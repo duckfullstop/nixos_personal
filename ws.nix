@@ -27,6 +27,8 @@
         atom
         jetbrains.goland
         gnome3.ghex
+        gitg
+        gitAndTools.gitAnnex
 
         ## Ops
         virtmanager

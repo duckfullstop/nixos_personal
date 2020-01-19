@@ -10,7 +10,6 @@
         pinentry
         gnupg
         pass
-        keepassx-community
 
         ## Editing
         nano
@@ -69,31 +68,11 @@
       enable = true;
     };
 
-    programs.taskwarrior = {
-      enable = true;
-      dataLocation = ".task";
-      colorTheme = "dark-256";
-      config = {
-        rc.dateformat="d/m/y";
-
-        default.command="next -BLOCKED";
-        verbose="blank,label";
-        taskd.certificate="~\/.task\/duck.cert.pem";
-        taskd.key="~\/.task\/duck.key.pem";
-        taskd.ca="~\/.task\/ca.cert.pem";
-        taskd.server="tasks.duck.moe:53589";
-        taskd.credentials="Labcoats\/duck\/43a644d3-3e56-417b-b14e-2fd788e5a600";
-        taskd.trust="ignore hostname";
-      };
-    };
-
     services.gpg-agent = {
       enable = true;
       defaultCacheTtl = 1800;
       enableSshSupport = true;
     };
-
-    # Graphical and UX.
 
   };
 }

@@ -29,6 +29,9 @@ in
       speedtest-cli
     ];
 
+    # idgaf about free software sorry
+    nixpkgs.config.allowUnfree = true;
+
     programs.home-manager = {
       enable = true;
     };

@@ -38,7 +38,6 @@
 
         # Utility
         parted gparted
-        guake
         sshfsFuse
         taskwarrior
         tasksh

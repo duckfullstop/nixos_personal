@@ -71,7 +71,7 @@
 
     programs.vscode = {
       enable = true;
-    }
+    };
 
     services.gpg-agent = {
       enable = true;

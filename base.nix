@@ -23,13 +23,10 @@ in
       ## Ops
       wireguard
 
-      ## Utility
+      # Utility
       parted
       iperf3
       speedtest-cli
-
-      ## Netcat from libressl (required for virt-manage to function properly)
-      netcat
     ];
 
     # idgaf about free software sorry

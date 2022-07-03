@@ -20,9 +20,6 @@ in
       ## Editing
       nano
 
-      ## Ops
-      wireguard
-
       # Utility
       parted
       iperf3

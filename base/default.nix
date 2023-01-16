@@ -29,7 +29,9 @@
 
     programs.htop = {
       enable = true;
-      cpuCountFromZero = true;
+      settings = {
+        cpu_count_from_one = 0;
+      };
     };
   };
   users.users.duck = {

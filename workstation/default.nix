@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./base.nix
+    ../base
   ];
   home-manager.users.duck = {
     home.packages = with pkgs; [

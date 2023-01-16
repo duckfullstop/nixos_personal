@@ -8,4 +8,4 @@
       # i3 = import ./workstation/i3;
     };
   };
-};
+}
